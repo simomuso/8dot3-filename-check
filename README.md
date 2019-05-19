@@ -11,7 +11,8 @@ If the drive supports 8.3 file naming, a success messagge will appear in the CMD
 
 # What to know
 - Capital/lower cases for drives are supported
-- A log file containing the check command result will be created in the same executable folder.
+- A log file containing the check command result will be created in the same executable folder
+- Source code is present and can be used freely
 
 
 
