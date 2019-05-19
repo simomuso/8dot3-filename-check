@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp2
 {
@@ -12,10 +6,23 @@ namespace ConsoleApp2
     {
         static void Main(string[] Args)
         {
-            var drive = Args[0].ToLower();
-            var shortNamingChecker = new ShortNamingChecker(new DrivesChecker(), new RunnerAsAdmin());
+            var drive = Args[0];
 
-            shortNamingChecker.CheckNamingSupport(drive);
+            var drivesChecker = new DrivesChecker();
+            var runnerAsAdmin = new RunnerAsAdmin();
+            var shortNamingChecker = new ShortNamingChecker(drivesChecker, runnerAsAdmin);
+
+            if (drivesChecker.IsDriveInstalled(drive))
+            {
+                Console.WriteLine(shortNamingChecker.CheckNamingSupport(drive)
+                    ? $"8.3 file naming support on ({drive}) --> YES"
+                    : $"8.3 file naming support on ({drive}) --> NO");
+            }
+            else
+            {
+                Console.WriteLine($"Drive ({drive}) not installed or valid");
+            }
+            Console.ReadKey();
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace ConsoleApp2
 {
@@ -19,7 +14,7 @@ namespace ConsoleApp2
             var avalDrives = DriveInfo.GetDrives();
             foreach (var d in avalDrives)
             {
-                if (d.Name.ToLower().Contains(drive) && d.DriveType != DriveType.CDRom)
+                if (d.Name.ToLower().Contains(drive.ToLower()) && d.DriveType != DriveType.CDRom)
                     return true;
             }
 

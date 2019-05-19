@@ -1,20 +1,18 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace ConsoleApp2
 {
     public interface IShortNamingChecker
     {
-        void CheckNamingSupport(string drive);
+        bool CheckNamingSupport(string drive);
     }
 
     public class ShortNamingChecker : IShortNamingChecker
     {
         private readonly IDrivesChecker _drivesChecker;
         private readonly IRunnerAsAdmin _runner;
+        private readonly string _resultPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),"output.log");
 
-        private readonly string _resultPath =
-            Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
 
         public ShortNamingChecker(IDrivesChecker drivesChecker, IRunnerAsAdmin runner)
         {
@@ -22,22 +20,10 @@ namespace ConsoleApp2
             _runner = runner;
         }
 
-        public void CheckNamingSupport(string drive)
+        public bool CheckNamingSupport(string drive)
         {
-            if (_drivesChecker.IsDriveInstalled(drive))
-            {
-                _runner.Run("cmd", $"/C fsutil 8dot3name query {drive}", _resultPath);
-
-                Console.WriteLine(IsShortNamingSupported()
-                    ? "ShortNaming supportato."
-                    : "ShortNaming non supportato.");
-
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Errore: drive specificato non esistente o non supportato");
-            }
+            _runner.Run("cmd", $"/C fsutil 8dot3name query {drive}", _resultPath);
+            return IsShortNamingSupported();
         }
 
         private bool IsShortNamingSupported()
