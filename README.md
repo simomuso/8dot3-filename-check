@@ -10,7 +10,7 @@ It simply wraps the fsutil command with *8dot3name* parameters.
 For instance, if the drive that you want to check is C:, the correct wat to use the tool is:
 8dot3FilenameCheck.exe C:
 
-If the drive supports 8.3 file naming, a success messagge will appear in the CMD window.
+If the drive supports 8.3 file naming, a success message will appear in the CMD window.
 
 # What to know
 - Capital/lower cases for drives are supported
